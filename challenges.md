@@ -1,2 +1,3 @@
-[ ] Infinity Scroll
-[ ] Responsive
+[ ] Scroll Infinito
+[ ] Responsividade
+[ ] Se clicar no mesmo episódio novamente, pausar audio
