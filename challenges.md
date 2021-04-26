@@ -1,3 +1,6 @@
-[ ] Scroll Infinito
-[ ] Responsividade
-[ ] Se clicar no mesmo episódio novamente, pausar audio
+# Para o próximo nível 🚀
+
+  - [ ] Documentação
+  - [ ] Scroll Infinito
+  - [ ] Responsividade
+  - [ ] Dark Mode

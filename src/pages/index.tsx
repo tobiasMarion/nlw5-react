@@ -1,12 +1,11 @@
 /*
 Consumir API's
-  SPA -> usEffect + useEffect
   SSR -> getServerSideProps()
   SSG -> getStaticProps()
 */
 
-// Tipagem da função
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { api } from '../services/api'
@@ -36,15 +35,22 @@ type HomeProps = {
 
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-  const { play } = useContext(PlayerContext)
+  const { playList } = useContext(PlayerContext)
+
+  const episodeList = [...latestEpisodes, ...allEpisodes]
 
   return (
     <div className={styles.homepage}>
+      <Head>
+        <title>Home | Podscatr</title>
+      </Head>
+
       <section className={styles.latestEpisodes}>
         <h2>Últimos lançamentos</h2>
 
         <ul>
-          {latestEpisodes.map(episode => {
+          {latestEpisodes.map((episode, index) => {
+
             return (
               <li key={episode.id}>
                 <Image
@@ -65,7 +71,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                 </div>
 
                 <button type="button">
-                  <img src="/play-green.svg" alt="Ouvir episódio" onClick={() => play(episode)}/>
+                  <img src="/play-green.svg" alt="Ouvir episódio" onClick={() => playList(episodeList, index)} />
                 </button>
               </li>
             )
@@ -89,7 +95,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           </thead>
 
           <tbody>
-            {allEpisodes.map(episode => {
+            {allEpisodes.map((episode, index) => {
               return (
                 <tr key={episode.id}>
                   <td style={{ width: 72 }}>
@@ -111,7 +117,14 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <td>{episode.durationAsString}</td>
                   <td>
                     <button type="button">
-                      <img src="/play-green.svg" alt="Ouvir podcast" onClick={() => play(episode)} />
+                      <img
+                        src="/play-green.svg"
+                        alt="Ouvir podcast"
+                        onClick={() => playList(
+                          episodeList,
+                          index + latestEpisodes.length
+                        )} 
+                      />
                     </button>
                   </td>
                 </tr>
